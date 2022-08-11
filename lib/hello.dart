@@ -5,19 +5,19 @@ void main() {
   List<int> list = [];
 
   while (true) {
+
     stdout.write('Enter a maximum number to random : ');
     var inmax = stdin.readLineSync();
-    var maxRan = int.tryParse(inmax!);
+    var maxRan = 100;
     var game = Game();
 
-    if (inmax != null) {
-      game = Game(maxRandom: maxRan!);
-    } else {
-      maxRan = 100;
+    if (inmax!.isNotEmpty) {
+        maxRan = int.tryParse(inmax)!;
+        game = Game(maxRandom: maxRan);
     }
 
     int result = 0;
-    int count = 0;
+    int count_guess = 0;
 
     print('╔══════════════════════════════════════════════════ ');
     print('║               GUESS THE NUMBER');
@@ -34,17 +34,16 @@ void main() {
       }
 
       result = game.doGuess(guess);
-      count++;
+      count_guess++;
 
       if (result == 1) {
         print('║ $guess is too High ▲');
       } else if (result == 2) {
         print('║ $guess is too Low ▼');
       } else if (result == 3) {
-        print('║ $guess is Correct ♥, TOTAL GUESSES : $count');
-
-        int answer = game.answer;
-        list.add(answer);
+        print('║ $guess is Correct ♥, TOTAL GUESSES : $count_guess');
+        
+        list.add(count_guess);
       }
 
       print('╟──────────────────────────────────────────────────');
